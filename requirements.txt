@@ -1,2 +1,5 @@
 environs==9.5.0
 python-telegram-bot==13.11
+google-cloud-dialogflow==2.11.0
+google-cloud-storage==2.1.0
+
