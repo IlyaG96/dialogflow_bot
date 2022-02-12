@@ -27,7 +27,6 @@ if __name__ == "__main__":
 
 
 def start(update, context):
-    user = update.effective_user
     update.message.reply_text(
         f'Здравствуйте!',
         reply_markup=ReplyMarkup(),
@@ -41,8 +40,8 @@ def help_command(update, context):
 def dialog_flow(update, context):
     user_message = update.message.text
     user_id = update.effective_chat.id
-    language_code = context.bot_data["language_code"]
-    project_id = context.bot_data["project_id"]
+    language_code = context.bot_data['language_code']
+    project_id = context.bot_data['project_id']
 
     incoming_message = detect_intent_texts(
         project_id, user_id, user_message, language_code

@@ -22,7 +22,7 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
     )
 
     response = intents_client.create_intent(
-        request={"parent": parent, "intent": intent}
+        request={'parent': parent, 'intent': intent}
     )
 
 
@@ -30,7 +30,7 @@ def main():
     env = Env()
     env.read_env()
     project_id = env.str('PROJECT_ID')
-    with open(file="training_phrases.json", mode="r") as file:
+    with open(file='training_phrases.json', mode='r') as file:
         training_phrases = json.load(file)
 
     for intent, intent_params in training_phrases.items():
