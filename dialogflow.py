@@ -14,4 +14,4 @@ def detect_intent_texts(project_id, session_id, text, language_code):
     )
 
     answer = response.query_result.fulfillment_text
-    return answer
+    return response

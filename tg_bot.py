@@ -20,14 +20,16 @@ def dialog_flow(update, context):
     user_id = update.effective_chat.id
     language_code = context.bot_data['language_code']
     project_id = context.bot_data['project_id']
-    answer = detect_intent_texts(
+    dialogflow_response = detect_intent_texts(
         project_id, user_id, user_message, language_code
     )
+
+    answer = dialogflow_response.query_result.fulfillment_text
 
     update.message.reply_text(answer)
 
 
-def main() -> None:
+def run_tg_bot() -> None:
 
     updater = Updater(tg_token)
     dispatcher = updater.dispatcher
@@ -43,4 +45,4 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    main()
+    run_tg_bot()
