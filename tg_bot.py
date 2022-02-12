@@ -6,7 +6,7 @@ from dialogflow import detect_intent_texts
 
 def start(update, context):
     update.message.reply_text(
-        f'Здравствуйте!',
+        'Здравствуйте!',
         reply_markup=ReplyMarkup(),
     )
 
@@ -30,14 +30,14 @@ def dialog_flow(update, context):
 
 def main() -> None:
 
-    language_code = "ru-ru"
+    language_code = 'ru-ru'
     updater = Updater(tg_token)
     dispatcher = updater.dispatcher
-    dispatcher.bot_data["language_code"] = language_code
-    dispatcher.bot_data["project_id"] = project_id
+    dispatcher.bot_data['language_code'] = language_code
+    dispatcher.bot_data['project_id'] = project_id
 
-    dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("help", help_command))
+    dispatcher.add_handler(CommandHandler('start', start))
+    dispatcher.add_handler(CommandHandler('help', help_command))
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, dialog_flow))
 
     updater.start_polling()
