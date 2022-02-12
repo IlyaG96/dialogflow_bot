@@ -55,7 +55,7 @@ def main() -> None:
     env = Env()
     env.read_env()
     TG_TOKEN = env.str("TG_TOKEN")
-  #  GOOGLE_APPLICATION_CREDENTIALS = env.str('GOOGLE_APPLICATION_CREDENTIALS')
+    GOOGLE_APPLICATION_CREDENTIALS = env.str('GOOGLE_APPLICATION_CREDENTIALS')
     project_id = env.str('PROJECT_ID')
     language_code = "ru-ru"
     updater = Updater(TG_TOKEN)
