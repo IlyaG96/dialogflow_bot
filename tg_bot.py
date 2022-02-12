@@ -1,6 +1,6 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ReplyMarkup
-from config import tg_token, project_id
+from config import tg_token, project_id, language_code
 from dialogflow import detect_intent_texts
 
 
@@ -20,17 +20,15 @@ def dialog_flow(update, context):
     user_id = update.effective_chat.id
     language_code = context.bot_data['language_code']
     project_id = context.bot_data['project_id']
-
-    incoming_message = detect_intent_texts(
+    answer = detect_intent_texts(
         project_id, user_id, user_message, language_code
     )
 
-    update.message.reply_text(incoming_message)
+    update.message.reply_text(answer)
 
 
 def main() -> None:
 
-    language_code = 'ru-ru'
     updater = Updater(tg_token)
     dispatcher = updater.dispatcher
     dispatcher.bot_data['language_code'] = language_code
