@@ -61,14 +61,16 @@ $ python create_intent
 ```bash
 $ python vk_bot
 ```
-![](https://github.com/IlyaG96/dialogflow_bot/blob/main/gif-examples/vk.gif)
 <img src="https://github.com/IlyaG96/dialogflow_bot/blob/main/gif-examples/vk.gif" width="50%" height="50%">
+
 ### Телеграм-бот
+
 Для старта телеграм-бота, запустите скрипт:
 ```bash
 $ python tg_bot
 ```
-![](https://github.com/IlyaG96/dialogflow_bot/blob/main/gif-examples/tg.gif)
+<img src="https://github.com/IlyaG96/dialogflow_bot/blob/main/gif-examples/tg.gif" width="50%" height="50%">
+
 
 ### config.py и dialogflow.py 
 
