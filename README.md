@@ -61,7 +61,7 @@ $ python create_intent
 ```bash
 $ python vk_bot
 ```
-<img src="https://github.com/IlyaG96/dialogflow_bot/blob/main/gif-examples/vk.gif" width="50%" height="50%">
+<img src="https://github.com/IlyaG96/dialogflow_bot/blob/main/gif-examples/vk-1.gif" width="50%" height="50%">
 
 ### Телеграм-бот
 
