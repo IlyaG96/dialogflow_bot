@@ -43,7 +43,6 @@ def run_vk_bot(logger):
     longpoll = VkLongPoll(vk_session)
     while True:
         try:
-            print(2/0)
             for event in longpoll.listen():
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me:
                     fetch_message(event, vk_api)
