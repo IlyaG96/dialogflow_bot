@@ -33,7 +33,7 @@ pip install -r requirements.txt
 * GOOGLE_APPLICATION_CREDENTIALS - путь до json файла с ключами. Только путь. Саму переменную в проекте никуда запихивать не надо. Это магия.
 * VK_TOKEN - токен группы ВК (в меню работа с API)
 * PROJECT_ID - project_id из GOOGLE_APPLICATION_CREDENTIALS
-* DEBUG_CHAT_ID - chat_id для сообщений о багах. (скорее всего, ваш chat-id)
+* DEBUG_CHAT_ID - chat_id для сообщений о багах. (скорее всего, ваш chat_id)
 
 
 <details>
