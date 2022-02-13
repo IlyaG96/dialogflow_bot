@@ -1,9 +1,9 @@
-from telegram.ext import Updater, MessageHandler, Filters
 from config import TG_TOKEN, PROJECT_ID, LANGUAGE_CODE, DEBUG_CHAT_ID
+from telegram.ext import Updater, MessageHandler, Filters
 from dialogflow import detect_intent_texts
-import time
-import logging
 import telegram
+import logging
+import time
 
 
 class TelegramLogsHandler(logging.Handler):
@@ -18,7 +18,7 @@ class TelegramLogsHandler(logging.Handler):
         self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
 
 
-def dialog_flow(update, context):
+def fetch_message(update, context):
     user_message = update.message.text
     user_id = update.effective_chat.id
     language_code = context.bot_data['language_code']
@@ -37,7 +37,7 @@ def run_tg_bot(logger, updater):
             dispatcher.bot_data['language_code'] = LANGUAGE_CODE
             dispatcher.bot_data['project_id'] = PROJECT_ID
 
-            dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, dialog_flow))
+            dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, fetch_message))
             updater.start_polling()
             updater.idle()
         except Exception as exception:

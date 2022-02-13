@@ -1,11 +1,11 @@
+from vk_api.longpoll import VkLongPoll, VkEventType
+from config import VK_TOKEN, PROJECT_ID, LANGUAGE_CODE, DEBUG_CHAT_ID, TG_TOKEN
+from dialogflow import detect_intent_texts
+from telegram import Bot
+import vk_api as vk
+import logging
 import random
 import time
-
-import vk_api as vk
-from vk_api.longpoll import VkLongPoll, VkEventType
-from config import VK_TOKEN, PROJECT_ID, LANGUAGE_CODE
-from dialogflow import detect_intent_texts
-import logging
 
 
 class TelegramLogsHandler(logging.Handler):
@@ -20,7 +20,7 @@ class TelegramLogsHandler(logging.Handler):
         self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
 
 
-def echo(event, vk_api):
+def fetch_message(event, vk_api):
 
     user_message = event.text
     user_id = event.user_id
@@ -43,19 +43,23 @@ def run_vk_bot(logger):
     longpoll = VkLongPoll(vk_session)
     while True:
         try:
+            print(2/0)
             for event in longpoll.listen():
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                    echo(event, vk_api)
+                    fetch_message(event, vk_api)
         except Exception as exception:
             logger.error(exception, exc_info=True)
             time.sleep(60)
 
 
 def main():
+    chat_id = DEBUG_CHAT_ID
+    bot = Bot(token=TG_TOKEN)
     logger = logging.getLogger('Logger')
     logger.setLevel(logging.WARNING)
     logger.addHandler(TelegramLogsHandler(bot, chat_id))
     run_vk_bot(logger)
+
 
 if __name__ == '__main__':
     main()
