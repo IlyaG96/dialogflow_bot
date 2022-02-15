@@ -1,21 +1,13 @@
 from config import TG_TOKEN, PROJECT_ID, LANGUAGE_CODE, DEBUG_CHAT_ID
 from telegram.ext import Updater, MessageHandler, Filters
 from dialogflow import detect_intent_texts
+from logger import TelegramLogsHandler
 import telegram
 import logging
 import time
 
-
-class TelegramLogsHandler(logging.Handler):
-
-    def __init__(self, tg_bot, chat_id):
-        super().__init__()
-        self.chat_id = chat_id
-        self.tg_bot = tg_bot
-
-    def emit(self, record):
-        log_entry = self.format(record)
-        self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
+logger = logging.getLogger('Logger')
+logger.setLevel(logging.WARNING)
 
 
 def fetch_message(update, context):
@@ -49,8 +41,6 @@ def main():
     chat_id = DEBUG_CHAT_ID
     updater = Updater(TG_TOKEN)
     bot = telegram.Bot(token=TG_TOKEN)
-    logger = logging.getLogger('Logger')
-    logger.setLevel(logging.WARNING)
     logger.addHandler(TelegramLogsHandler(bot, chat_id))
     run_tg_bot(logger, updater)
 
