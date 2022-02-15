@@ -1,7 +1,7 @@
-from config import TG_TOKEN, PROJECT_ID, LANGUAGE_CODE, DEBUG_CHAT_ID
 from telegram.ext import Updater, MessageHandler, Filters
 from dialogflow import detect_intent_texts
 from logger import TelegramLogsHandler
+from environs import Env
 import telegram
 import logging
 import time
@@ -22,12 +22,22 @@ def fetch_message(update, context):
     update.message.reply_text(answer)
 
 
-def run_tg_bot(logger, updater):
+def main():
+    env = Env()
+    env.read_env()
+    tg_token = env.str('TG_TOKEN')
+    project_id = env.str('PROJECT_ID')
+    language_code = 'ru-ru'
+    debug_chat_id = env.int('DEBUG_CHAT_ID')
+    updater = Updater(tg_token)
+    bot = telegram.Bot(token=tg_token)
+    logger.addHandler(TelegramLogsHandler(bot, debug_chat_id))
+
     while True:
         try:
             dispatcher = updater.dispatcher
-            dispatcher.bot_data['language_code'] = LANGUAGE_CODE
-            dispatcher.bot_data['project_id'] = PROJECT_ID
+            dispatcher.bot_data['language_code'] = language_code
+            dispatcher.bot_data['project_id'] = project_id
 
             dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, fetch_message))
             updater.start_polling()
@@ -35,14 +45,6 @@ def run_tg_bot(logger, updater):
         except Exception as exception:
             logger.error(exception, exc_info=True)
             time.sleep(60)
-
-
-def main():
-    chat_id = DEBUG_CHAT_ID
-    updater = Updater(TG_TOKEN)
-    bot = telegram.Bot(token=TG_TOKEN)
-    logger.addHandler(TelegramLogsHandler(bot, chat_id))
-    run_tg_bot(logger, updater)
 
 
 if __name__ == '__main__':
