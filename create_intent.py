@@ -1,6 +1,7 @@
 from google.cloud import dialogflow
 import json
-from config import project_id
+import argparse
+from environs import Env
 
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):
@@ -27,8 +28,16 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
 
 
 def main():
+    env = Env()
+    env.read_env()
+    project_id = env.str('PROJECT_ID')
 
-    with open(file='training_phrases.json', mode='r') as file:
+    parser = argparse.ArgumentParser(
+        description="Путь к файлу json")
+    parser.add_argument("-p", "--json_path", required=True)
+    args = parser.parse_args()
+
+    with open(file=args.json_path, mode='r') as file:
         training_phrases = json.load(file)
 
     for intent, intent_params in training_phrases.items():
