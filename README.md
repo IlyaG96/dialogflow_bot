@@ -52,8 +52,9 @@ pip install -r requirements.txt
 
 Для того, чтобы обучить своего агента тестовым фразам, связанным с трудоустройством, запустите скрипт `create_intent.py`:
 ```bash
-$ python create_intent
+$ python create_intent -p 'full/path/to/file.json'
 ```
+Обязательный аргумент json_path - полный путь до файла с тренировочными фразами.  
 Вы можете подробно изучить структуру файла `training_phrases.json` и внести туда изменения.
 
 ### ВК-бот
