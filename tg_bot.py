@@ -38,12 +38,11 @@ def main():
             dispatcher = updater.dispatcher
             dispatcher.bot_data['language_code'] = language_code
             dispatcher.bot_data['project_id'] = project_id
-
             dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, fetch_message))
             updater.start_polling()
             updater.idle()
         except Exception as exception:
-            logger.error(exception, exc_info=True)
+            logger.exception(exception, exc_info=True)
             time.sleep(60)
 
 

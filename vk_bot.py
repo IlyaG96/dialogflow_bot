@@ -50,7 +50,7 @@ def main():
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me:
                     fetch_message(event, vk_api, project_id, language_code)
         except Exception as exception:
-            logger.error(exception, exc_info=True)
+            logger.exception(exception, exc_info=True)
             time.sleep(60)
 
 
