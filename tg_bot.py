@@ -7,7 +7,6 @@ import logging
 import time
 
 logger = logging.getLogger('Logger')
-logger.setLevel(logging.WARNING)
 
 
 def fetch_message(update, context):
@@ -31,6 +30,7 @@ def main():
     debug_chat_id = env.int('DEBUG_CHAT_ID')
     updater = Updater(tg_token)
     bot = telegram.Bot(token=tg_token)
+    logger.setLevel(logging.WARNING)
     logger.addHandler(TelegramLogsHandler(bot, debug_chat_id))
 
     while True:
@@ -42,7 +42,7 @@ def main():
             updater.start_polling()
             updater.idle()
         except Exception as exception:
-            logger.exception(exception, exc_info=True)
+            logger.exception(exception)
             time.sleep(60)
 
 

@@ -10,7 +10,6 @@ import time
 
 
 logger = logging.getLogger('Logger')
-logger.setLevel(logging.WARNING)
 
 
 def fetch_message(event, vk_api, project_id, language_code):
@@ -39,6 +38,7 @@ def main():
     language_code = 'ru-ru'
     debug_chat_id = env.int('DEBUG_CHAT_ID')
     bot = Bot(token=tg_token)
+    logger.setLevel(logging.WARNING)
     logger.addHandler(TelegramLogsHandler(bot, debug_chat_id))
 
     while True:
@@ -50,7 +50,7 @@ def main():
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me:
                     fetch_message(event, vk_api, project_id, language_code)
         except Exception as exception:
-            logger.exception(exception, exc_info=True)
+            logger.exception(exception)
             time.sleep(60)
 
 
